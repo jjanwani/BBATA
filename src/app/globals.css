@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #00274c;
+  --maize: #ffcb05;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-maize: var(--maize);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background: #f6f7f9;
+  color: #111827;
+}
+
+@utility input {
+  @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-navy focus:ring-2 focus:ring-navy/15;
+}
+
+@utility label {
+  @apply mb-1 block text-sm font-medium text-gray-700;
+}
+
+@utility card {
+  @apply rounded-xl border border-gray-200 bg-white shadow-sm;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply btn bg-navy text-white hover:bg-navy/90;
+}
+@utility btn-maize {
+  @apply btn bg-maize text-navy hover:bg-maize/90;
+}
+@utility btn-ghost {
+  @apply btn border border-gray-300 bg-white text-gray-700 hover:bg-gray-50;
+}
