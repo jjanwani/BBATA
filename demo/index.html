@@ -28,6 +28,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
@@ -310,8 +311,54 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .search-results a { display: block; padding: 10px 12px; border-radius: 8px; }
 .search-results a:hover, .search-results a:focus { background: var(--bg); }
 .search-results small { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
-.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); max-width: calc(100vw - 32px); }
-.demo-note { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 32px; }
+.toast { position: fixed; left: 50%; bottom: calc(88px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 70; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); max-width: calc(100vw - 32px); }
+.demo-note { text-align: center; color: var(--muted); font-size: 13px; padding: 0 16px 96px; }
+/* ── Assistant ── */
+.bot-launch { position: fixed; z-index: 55; right: max(20px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; border-radius: 999px; background: var(--navy); color: #fff; font-weight: 600; font-size: 14px;
+  box-shadow: 0 10px 28px rgba(0,39,76,.35); border: 2px solid var(--maize); }
+.bot-launch:hover { background: var(--navy-2); }
+.bot-launch .spark { width: 28px; height: 28px; border-radius: 50%; background: var(--maize); color: var(--navy); display: grid; place-items: center; }
+.bot-launch .spark svg { width: 16px; height: 16px; }
+.bot-panel { position: fixed; z-index: 56; right: max(20px, calc(env(safe-area-inset-right, 0px) + 16px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  width: min(400px, calc(100vw - 32px)); height: min(600px, calc(100dvh - 110px)); display: flex; flex-direction: column; overflow: hidden;
+  background: var(--card); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 60px rgba(0,20,50,.28); }
+.bot-head { display: flex; align-items: center; gap: 12px; padding: 14px 14px 14px 16px; background: var(--navy); color: #fff; }
+.bot-head .spark { width: 34px; height: 34px; border-radius: 10px; background: var(--maize); color: var(--navy); display: grid; place-items: center; flex-shrink: 0; }
+.bot-head .spark svg { width: 18px; height: 18px; }
+.bot-head b { display: block; font-size: 15px; }
+.bot-head small { color: rgba(255,255,255,.72); font-size: 12px; }
+.bot-head .close { color: #fff; margin-left: auto; }
+.bot-head .close:hover { background: rgba(255,255,255,.12); }
+.bot-log { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; background: #fbfcfd; }
+.bot-msg { max-width: 88%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+.bot-msg.bot { background: #eef1f5; border-bottom-left-radius: 4px; align-self: flex-start; }
+.bot-msg.user { background: var(--navy); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+.bot-msg p { margin: 0; }
+.bot-msg p + p { margin-top: 6px; }
+.bot-results { display: grid; gap: 6px; margin-top: 10px; }
+.bot-result { display: block; padding: 9px 11px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); }
+.bot-result:hover { border-color: var(--navy); }
+.bot-result small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.bot-result b { display: block; font-size: 13.5px; color: var(--navy); }
+.bot-result span { display: block; font-size: 12.5px; color: var(--muted); }
+.bot-suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+.bot-suggest button { padding: 6px 11px; border-radius: 999px; border: 1px solid #c9d2de; background: var(--card); font-size: 12.5px; color: var(--navy); font-weight: 500; text-align: left; }
+.bot-suggest button:hover { background: var(--maize-soft); border-color: var(--maize); }
+.bot-typing { align-self: flex-start; display: inline-flex; gap: 4px; padding: 12px 14px; background: #eef1f5; border-radius: 14px; border-bottom-left-radius: 4px; }
+.bot-typing i { width: 6px; height: 6px; border-radius: 50%; background: #8a96a8; animation: blink 1.2s infinite; }
+.bot-typing i:nth-child(2) { animation-delay: .15s; } .bot-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 0%, 80%, 100% { opacity: .3; } 40% { opacity: 1; } }
+.bot-form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: var(--card); }
+.bot-form input { flex: 1; min-width: 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; }
+.bot-form input:focus { outline: 2px solid rgba(0,39,76,.25); border-color: var(--navy); }
+.bot-foot { padding: 0 12px 10px; font-size: 11.5px; color: var(--muted); background: var(--card); }
+@media (max-width: 560px) {
+  .bot-launch .label { display: none; }
+  .bot-launch { padding: 10px; }
+  .bot-panel { right: 0; left: 0; bottom: 0; width: 100%; height: min(86dvh, 640px); border-radius: 16px 16px 0 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
+}
+@media (prefers-reduced-motion: reduce) { .bot-typing i { animation: none; opacity: .7; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -344,6 +391,15 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 <main id="app"></main>
 <p class="demo-note">Demo with sample data. Nothing you post here is saved or sent.</p>
 <div id="overlay"></div>
+<button class="bot-launch" id="botLaunch" aria-expanded="false" aria-controls="botPanel"><span class="spark"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 15l.9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></svg></span><span class="label">Ask BBATA</span></button>
+<section class="bot-panel" id="botPanel" role="dialog" aria-label="BBATA Assistant" hidden>
+  <div class="bot-head"><span class="spark"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 15l.9 2.6 2.6.9-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></svg></span>
+    <div><b>BBATA Assistant</b><small>Finds mentors, events, resources, and clubs</small></div>
+    <button class="close" id="botClose" aria-label="Close assistant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  <div class="bot-log" id="botLog" aria-live="polite"></div>
+  <form class="bot-form" id="botForm"><label class="sr-only" for="botInput">Ask the assistant</label><input id="botInput" placeholder="e.g. Find me a consulting mentor" autocomplete="off"><button class="btn btn-navy" type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></button></form>
+  <div class="bot-foot">Demo assistant: it searches BBATA's sample content.</div>
+</section>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script>
@@ -785,9 +841,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
     var f = overlay.querySelector(focusSel || 'input, textarea, button'); if (f) f.focus();
   }
   function closeModal() { overlay.innerHTML = ''; }
-  function openAsk() {
+  function openAsk(prefill) {
     openModal('<div class="modal-head"><h2>Ask a Question</h2><button class="close" data-close aria-label="Close">' + I.close + '</button></div>' +
-      '<form id="askForm" style="display:grid;gap:14px"><div class="field"><label for="askTitle">Question</label><input id="askTitle" required minlength="5" placeholder="e.g. When should sophomores start networking for IB?"></div>' +
+      '<form id="askForm" style="display:grid;gap:14px"><div class="field"><label for="askTitle">Question</label><input id="askTitle" required minlength="5" placeholder="e.g. When should sophomores start networking for IB?" value="' + esc(prefill || '') + '"></div>' +
       '<div class="field"><label for="askBody">Details</label><textarea id="askBody" rows="4" placeholder="Add context so people can give you a better answer."></textarea></div>' +
       '<div class="field"><label for="askTags">Hashtags (comma-separated)</label><input id="askTags" placeholder="Consulting, Recruiting"></div>' +
       '<label class="check"><input type="checkbox" id="askAnon"> Post anonymously (moderators can still see your name)</label>' +
@@ -920,6 +976,178 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 
   // Keep "x minutes ago" fresh.
   setInterval(function () { if (!overlay.innerHTML && !/messages/.test(location.hash) && !document.activeElement.matches('input, textarea, select')) route(); }, 60000);
+
+  // ── BBATA Assistant ──
+  // Answers by searching the site's own content: works out what the student
+  // is after (mentor, event, resource, club, forum) and which field, then
+  // returns the best matches as links.
+  var bot = { started: false, last: '' };
+  var TOPICS = {
+    Consulting: ['consult', 'mckinsey', 'bcg', 'bain', 'mbb', 'case', 'deloitte', 'strategy'],
+    Finance: ['financ', 'bank', 'ib', 'invest', 'trading', 'asset', 'stock', 'wealth', 'dcf', 'valuation', 'hedge', 'private equity'],
+    Tech: ['tech', 'pm', 'product', 'software', 'leetcode', 'coding', 'google', 'amazon', 'microsoft', 'data', 'fintech'],
+    Entrepreneurship: ['entrepreneur', 'startup', 'founder', 'pitch', 'venture', 'vc', 'zell'],
+    Marketing: ['market', 'brand', 'p&g', 'advertis'],
+    Classes: ['class', 'course', 'strat', 'acc ', 'acc2', 'exam', 'midterm', 'final', 'study', 'syllab', 'homework', 'drop', 'registration'],
+    Recruitment: ['recruit', 'internship', 'timeline', 'resume', 'cover letter', 'interview', 'coffee chat', 'network', 'apply', 'application']
+  };
+  var KINDS = {
+    mentor: ['mentor', 'advice from', 'talk to someone', 'upperclass', 'guide me', 'someone who', 'who can help', 'help me with', 'someone to'],
+    event: ['event', 'workshop', 'info session', 'session', 'panel', 'mixer', 'social', 'competition', 'speaker', 'this week', 'today', 'tomorrow', 'register', 'happening'],
+    resource: ['resource', 'guide', 'template', 'notes', 'cheat sheet', 'study guide', 'practice', 'prep material', 'download', 'pdf'],
+    club: ['club', 'organization', 'org ', 'orgs', 'join', 'society', 'fraternit', 'frat'],
+    forum: ['forum', 'question', 'discussion', 'post', 'anonymous', 'asked']
+  };
+  function hasAny(q, words) { return words.some(function (w) { return q.indexOf(w) >= 0; }); }
+  function detectTopics(q) { return Object.keys(TOPICS).filter(function (t) { return hasAny(q, TOPICS[t]); }); }
+  function words(q) { return q.toLowerCase().split(/[^a-z0-9&]+/).filter(function (w) { return w.length > 2 && ['the', 'and', 'for', 'with', 'what', 'where', 'when', 'how', 'can', 'are', 'any', 'find', 'need', 'want', 'looking', 'about', 'some', 'there', 'show', 'help', 'get', 'who', 'should', 'does', 'this', 'that', 'have', 'into', 'job', 'jobs', 'guide', 'you', 'your', 'feel', 'any'].indexOf(w) < 0; }); }
+  function score(text, q, topics) {
+    var t = text.toLowerCase(), s = 0;
+    words(q).forEach(function (w) { if (t.indexOf(w) >= 0) s += 2; });
+    topics.forEach(function (tp) { if (hasAny(t, TOPICS[tp]) || t.indexOf(tp.toLowerCase()) >= 0) s += 3; });
+    return s;
+  }
+  // Keep only real matches, and only ones close to the best match.
+  function top(list, n) {
+    var hits = list.filter(function (x) { return x.base > 0; }).sort(function (a, b) { return b.s - a.s; });
+    if (!hits.length) return [];
+    var best = Math.max.apply(null, hits.map(function (x) { return x.base; }));
+    return hits.filter(function (x) { return x.base >= best * 0.6; }).slice(0, n);
+  }
+
+  function findMentors(q, topics) {
+    return top(mentors.map(function (m) { var b = score(m.name + ' ' + m.major + ' ' + m.area + ' ' + m.tags.join(' ') + ' ' + m.bio, q, topics); return { base: b, s: b + m.match / 100, item: m }; }), 3)
+      .map(function (r) { var m = r.item; return { kind: 'Mentor', title: m.name + ' · ' + m.match + '% match', sub: m.year + ' · ' + m.tags.slice(0, 2).join(', '), href: '#mentorship', mentorId: m.id }; });
+  }
+  function findEvents(q, topics) {
+    var soon = /this week|today|tomorrow|soon|upcoming|next/.test(q);
+    var list = events.map(function (e) {
+      var b = score(e.title + ' ' + e.desc + ' ' + e.type + ' ' + e.focus + ' ' + e.tags.join(' ') + ' ' + e.center, q, topics);
+      var thisWeek = e.start - Date.now() < 7 * DAY;
+      if (!topics.length && soon && thisWeek) b += 3;
+      if (topics.length && b > 0 && soon && thisWeek) b += 1;
+      return { base: b, s: b, item: e };
+    });
+    return top(list, 3).sort(function (a, b) { return a.item.start - b.item.start; })
+      .map(function (r) { var e = r.item; return { kind: 'Event · ' + e.type, title: e.title, sub: fmtDate.format(e.start) + ' · ' + fmtTime.format(e.start) + ' · ' + e.place, href: '#events' }; });
+  }
+  function findResources(q, topics) {
+    return top(resources.map(function (r) { var b = score(r.title + ' ' + r.desc + ' ' + r.cat, q, topics); return { base: b, s: b + r.up / 1000, item: r }; }), 3)
+      .map(function (x) { var r = x.item; return { kind: 'Resource · ' + r.cat, title: r.title, sub: r.downloads + ' downloads · ' + r.up + ' upvotes', href: '#resources' }; });
+  }
+  function findClubs(q, topics) {
+    var out = [];
+    clubCats.forEach(function (c) { c.clubs.forEach(function (k) { var b = score(k[0] + ' ' + k[1] + ' ' + c.name + ' ' + c.tag, q, topics); out.push({ base: b, s: b, item: { name: k[0], desc: k[1], cat: c.name } }); }); });
+    return top(out, 3).map(function (r) { return { kind: 'Club · ' + r.item.cat, title: r.item.name, sub: r.item.desc, href: '#clubs' }; });
+  }
+  function findPosts(q, topics) {
+    return top(posts.map(function (p) { var b = score(p.title + ' ' + p.body + ' ' + p.tags.join(' ') + ' ' + p.answers.map(function (a) { return a.body; }).join(' '), q, topics); return { base: b, s: b + p.likes / 1000, item: p }; }), 3)
+      .map(function (r) { var p = r.item, n = p.answers.length; return { kind: 'Forum', title: p.title, sub: n + (n === 1 ? ' response' : ' responses') + (p.answers.some(function (a) { return a.endorsed; }) ? ' · mentor-endorsed' : ''), href: '#post-' + p.id }; });
+  }
+
+  function answer(raw) {
+    var q = ' ' + raw.toLowerCase() + ' ';
+    var topics = detectTopics(q);
+    var topicName = topics[0] ? topics[0].toLowerCase() : '';
+    if (/^\s*(hi|hello|hey|yo|sup)\b/.test(q) && raw.length < 20) {
+      return { text: ['Hi! I can help you find mentors, events, resources, clubs, and answers from the Forum. What are you looking for?'], suggest: starters() };
+    }
+    if (hasAny(q, ['thank', 'thx', 'appreciate'])) return { text: ['Anytime! Anything else you want to find?'], suggest: starters().slice(0, 3) };
+    if (hasAny(q, ['anonymous', 'anonymously'])) {
+      return { text: ['Yes, you can post anonymously. Click "Ask Question" in the Forum and check "Post anonymously". Other students won\'t see your name; moderators can, to keep things respectful.'],
+        actions: [{ label: 'Ask a question', ask: '' }], suggest: ['Show me questions about classes', 'Find a mentor for consulting'] };
+    }
+    if (hasAny(q, ['how do i message', 'send a message', 'contact a mentor', 'how do i connect', 'reach out'])) {
+      return { text: ['Open Mentorship, pick a mentor, and click Connect. That starts a chat in Messages with an intro already written for you.'], results: findMentors(q, topics), suggest: ['Find a mentor for finance', 'Coffee chat email templates'] };
+    }
+
+    var kinds = Object.keys(KINDS).filter(function (k) { return hasAny(q, KINDS[k]); });
+    var timeline = hasAny(q, ['timeline', 'when should', 'when do', 'when does', 'start recruiting', 'how early', 'too early', 'behind']);
+    var res = [], text = [];
+
+    if (kinds.length === 1 && kinds[0] === 'mentor' || (kinds.indexOf('mentor') >= 0 && kinds.length === 1)) {
+      res = findMentors(q, topics);
+      text.push(res.length ? 'Here are the best ' + (topicName ? topicName + ' ' : '') + 'mentors for you, sorted by match. Click one to connect:' : 'I couldn\'t find a mentor for that yet. Here are your top matches overall:');
+      if (!res.length) res = findMentors('', ['Consulting', 'Tech', 'Finance']);
+    } else if (kinds.length === 1 && kinds[0] === 'event') {
+      res = findEvents(q, topics);
+      text.push(res.length ? 'These ' + (topicName ? topicName + ' ' : '') + 'events are coming up:' : 'No events match that right now. Here\'s what\'s happening soon:');
+      if (!res.length) res = findEvents(' this week ', []);
+    } else if (kinds.length === 1 && kinds[0] === 'resource') {
+      res = findResources(q, topics);
+      text.push(res.length ? 'These resources should help:' : 'I didn\'t find a resource for that. You could upload one, or ask in the Forum.');
+    } else if (kinds.length === 1 && kinds[0] === 'club') {
+      res = findClubs(q, topics);
+      text.push(res.length ? 'Here are some ' + (topicName ? topicName + ' ' : '') + 'clubs to look at:' : 'I didn\'t find a Ross club for that. Maize Pages lists all 1,400+ U-M organizations.');
+    } else if (kinds.length === 1 && kinds[0] === 'forum') {
+      res = findPosts(q, topics);
+      text.push(res.length ? 'Here\'s what students are discussing:' : 'Nobody has asked about that yet. Want to post it?');
+    } else {
+      // Broad question: pull the best answer from each area.
+      if (timeline) text.push(topicName ? 'Short answer: for ' + topicName + ', most Ross students start networking in the fall of sophomore year and apply in the winter. Here\'s where to dig in:' : 'Most internship recruiting starts sophomore fall. These will help you plan:');
+      var groups = [findPosts(q, topics).slice(0, 2), findResources(q, topics).slice(0, 2), findEvents(q, topics).slice(0, 1), findMentors(q, topics).slice(0, 1), findClubs(q, topics).slice(0, 1)];
+      if (timeline) groups = [findResources(q + ' timeline', topics.concat(['Recruitment'])).slice(0, 1)].concat(groups);
+      var seen = {};
+      groups.forEach(function (g) { g.forEach(function (r) { if (!seen[r.title] && res.length < 5) { seen[r.title] = 1; res.push(r); } }); });
+      if (!text.length) text.push(res.length ? 'Here\'s what I found across BBATA:' : 'I couldn\'t find anything on BBATA about that yet. Upperclassmen answer questions in the Forum, so it\'s a good place to ask.');
+    }
+
+    var out = { text: text, results: res, suggest: followUps(topics, kinds) };
+    if (!res.length) out.actions = [{ label: 'Ask the Forum instead', ask: raw }];
+    else if (kinds.indexOf('forum') >= 0 || (!kinds.length && res.every(function (r) { return r.kind !== 'Forum'; }))) out.actions = [{ label: 'Ask the Forum', ask: raw }];
+    return out;
+  }
+  function starters() { return ['When does consulting recruiting start?', 'Find me a finance mentor', 'Tech events this week', 'Study guide for STRAT 390', 'Clubs for entrepreneurship']; }
+  function followUps(topics, kinds) {
+    var t = topics[0] || 'Consulting';
+    var opts = [['mentor', 'Find a ' + t.toLowerCase() + ' mentor'], ['event', t + ' events coming up'], ['resource', t + ' prep resources'], ['club', t + ' clubs']];
+    return opts.filter(function (o) { return kinds.indexOf(o[0]) < 0; }).slice(0, 3).map(function (o) { return o[1]; });
+  }
+
+  var botLog = $('#botLog'), botPanel = $('#botPanel'), botLaunch = $('#botLaunch');
+  function botBubble(who, html) { var d = document.createElement('div'); d.className = 'bot-msg ' + who; d.innerHTML = html; botLog.appendChild(d); botLog.scrollTop = botLog.scrollHeight; return d; }
+  function suggestRow(list, actions) {
+    if (!(list && list.length) && !(actions && actions.length)) return;
+    var d = document.createElement('div'); d.className = 'bot-suggest';
+    d.innerHTML = (actions || []).map(function (a) { return '<button data-botask="' + esc(a.ask) + '" style="background:var(--maize);border-color:var(--maize)">' + esc(a.label) + '</button>'; }).join('') +
+      (list || []).map(function (s) { return '<button data-botq="' + esc(s) + '">' + esc(s) + '</button>'; }).join('');
+    botLog.appendChild(d); botLog.scrollTop = botLog.scrollHeight;
+  }
+  function botReply(a) {
+    var html = a.text.map(function (t) { return '<p>' + esc(t) + '</p>'; }).join('');
+    if (a.results && a.results.length) html += '<div class="bot-results">' + a.results.map(function (r) {
+      return '<a class="bot-result" href="' + r.href + '"' + (r.mentorId ? ' data-botmentor="' + r.mentorId + '"' : '') + '><small>' + esc(r.kind) + '</small><b>' + esc(r.title) + '</b><span>' + esc(r.sub) + '</span></a>';
+    }).join('') + '</div>';
+    botBubble('bot', html); suggestRow(a.suggest, a.actions);
+  }
+  function botAsk(q) {
+    q = q.trim(); if (!q) return;
+    botLog.querySelectorAll('.bot-suggest').forEach(function (n) { n.remove(); });
+    botBubble('user', esc(q));
+    var typing = document.createElement('div'); typing.className = 'bot-typing'; typing.setAttribute('aria-label', 'Assistant is typing'); typing.innerHTML = '<i></i><i></i><i></i>';
+    botLog.appendChild(typing); botLog.scrollTop = botLog.scrollHeight;
+    setTimeout(function () { typing.remove(); botReply(answer(q)); }, 550 + Math.min(q.length * 12, 600));
+  }
+  function botOpen(open) {
+    botPanel.hidden = !open; botLaunch.hidden = open; botLaunch.setAttribute('aria-expanded', String(open));
+    if (open && !bot.started) {
+      bot.started = true;
+      botBubble('bot', '<p>Hi Alex! I\'m the BBATA Assistant. Tell me what you\'re looking for and I\'ll point you to the right mentors, events, resources, clubs, or Forum threads.</p>');
+      suggestRow(starters());
+    }
+    if (open) setTimeout(function () { $('#botInput').focus(); }, 30); else botLaunch.focus();
+  }
+  botLaunch.addEventListener('click', function () { botOpen(true); });
+  $('#botClose').addEventListener('click', function () { botOpen(false); });
+  $('#botForm').addEventListener('submit', function (e) { e.preventDefault(); e.stopPropagation(); var i = $('#botInput'); botAsk(i.value); i.value = ''; });
+  botLog.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-botq]'); if (b) { botAsk(b.dataset.botq); return; }
+    var a = e.target.closest('[data-botask]'); if (a) { openAsk(a.dataset.botask); return; }
+    var m = e.target.closest('[data-botmentor]'); if (m) { ui.mentorCat = 'All'; ui.mentorQ = ''; }
+    if (e.target.closest('.bot-result') && window.innerWidth <= 560) botOpen(false);
+  });
+  // Capture phase: runs before the modal's own Escape handler, so closing a modal leaves the chat open.
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !botPanel.hidden && !overlay.innerHTML) botOpen(false); }, true);
 
   renderBell();
   route();
